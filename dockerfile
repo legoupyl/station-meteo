@@ -1,5 +1,4 @@
-FROM resin/rpi-raspbian:wheezy
-MAINTAINER Dieter Reuter <dieter@hypriot.com>
+FROM alpine
 
 # Install dependencies
 RUN apt-get update
