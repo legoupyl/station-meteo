@@ -1,4 +1,5 @@
 sudo apt-get update
+sudo apt-get i2c-tools
 sudo apt-get install apt-utils
 sudo apt-get install libsqlite3-dev
 sudo apt-get install sqlite3
