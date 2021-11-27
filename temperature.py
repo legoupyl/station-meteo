@@ -112,7 +112,7 @@ oregon_probes ["Oregon TempHygro"]= 1
 
 # Initialisation des PIN
 
-buzzer_pin = 11 #15
+buzzer_pin = 13 #15
 GPIO.setup(buzzer_pin, GPIO.OUT)
 
 
@@ -1062,9 +1062,9 @@ lcd=lcd_init (1)
 #interrupts()
 
 
-t6 = threading.Thread (target = mesure_bmp380)
-t4 = threading.Thread (target = log_database)
-t3 = threading.Thread (target = rflink)
+#t6 = threading.Thread (target = mesure_bmp380)
+#t4 = threading.Thread (target = log_database)
+#t3 = threading.Thread (target = rflink)
 
 #t2 = threading.Thread (target = mesure)
 #t1 = threading.Thread (target = led_blinking)
@@ -1073,9 +1073,9 @@ t3 = threading.Thread (target = rflink)
 #t0.start()
 #t1.start()
 #t2.start()
-t3.start()
-t4.start()
-t6.start()
+#t3.start()
+#t4.start()
+#t6.start()
 
 # downloading TLE for IIS
 downloadtle ()
