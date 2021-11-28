@@ -16,4 +16,5 @@ python -m pip install RPi.GPIO
 python -m pip install paho-mqtt
 python -m pip install wget
 cd Adafruit_Python_MPR121/ && python ./setup.py install
+chmod 777 ./database/dataenv
 
