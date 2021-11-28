@@ -15,6 +15,7 @@ python -m pip install smbus2
 python -m pip install RPi.GPIO
 python -m pip install paho-mqtt
 python -m pip install wget
+sudo apt-get install libatlas-base-dev
 python -m pip install numpy
 cd Adafruit_Python_MPR121/ && python ./setup.py install
 chmod 777 ./database/dataenv
