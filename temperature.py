@@ -58,14 +58,14 @@ gtkline2=""
 gtkline3=""
 gtkline4=""
 
-dbname='/data/shared/station-meteo/database/dataenv'
-confdbname='/data/shared/station-meteo/database/conf.db'
+dbname='./database/dataenv'
+confdbname='./database/conf.db'
 isstleurl="https://www.celestrak.com/NORAD/elements/stations.txt"
-tledirectory="/data/shared/station-meteo/tle/"
+tledirectory="./tle/"
 isstelefile = "iss_tle.txt"
-elevation = 185 #altitude en metres
+elevation = 216 #altitude en metres : 189 m + 9 x 3m
 pressureelevation= 0.12
-gpioKeyboard=13 #ou 13
+gpioKeyboard=40 #ou 13
 
 
 #Variables Azure IOT
@@ -112,7 +112,8 @@ oregon_probes ["Oregon TempHygro"]= 1
 
 # Initialisation des PIN
 
-buzzer_pin = 13 #15
+buzzer_pin = 22 #15
+print ("Initializing buzzer PIN " + str(buzzer_pin))
 GPIO.setup(buzzer_pin, GPIO.OUT)
 
 
@@ -158,13 +159,13 @@ def astro_ephemplanet (planet):
 
 
 def astro_planetnexttransit (planet):
-	location = astro_obslocation ("LYON")
+	location = astro_obslocation ("OULLINS")
 	eventdate =ephem.localtime (ephem.Date (location.next_transit(astro_ephemplanet (planet))))
 	location.date = datetime.datetime.utcnow()
 	return "TR: " + eventdate.strftime('%b %d %H:%M:%S')
 
 def astro_planetnextrising (planet,utc=False):
-	location = astro_obslocation ("LYON")
+	location = astro_obslocation ("OULLINS")
 	eventdateutc =location.next_rising(astro_ephemplanet (planet))
 	eventdate =ephem.localtime (ephem.Date (eventdateutc))
 	location.date = datetime.datetime.utcnow()
@@ -174,13 +175,13 @@ def astro_planetnextrising (planet,utc=False):
 		return str (eventdateutc).replace ("/","-")
 		
 def astro_planetnextsetting (planet):
-	location = astro_obslocation ("LYON")
+	location = astro_obslocation ("OULLINS")
 	eventdate =ephem.localtime (ephem.Date (location.next_setting(astro_ephemplanet (planet))))
 	return "S: " + eventdate.strftime('%b %d %H:%M')
 	location.date = datetime.datetime.utcnow()
 
 def astro_planetazimuth (planet):
-	location = astro_obslocation ("LYON")
+	location = astro_obslocation ("OULLINS")
 	degrees_per_radian = 180.0 / math.pi
 	ephobject = astro_ephemplanet (planet)
 	location.date = datetime.datetime.utcnow()
@@ -193,7 +194,7 @@ def astro_planetazimuth (planet):
 def astro_satellitenextpass (satname,data,utc=False):
 	global satellite_tle
 	exitloop = False
-	location = astro_obslocation ("LYON")
+	location = astro_obslocation ("OULLINS")
 	satellite = ephem.readtle (astro_satTLE ("ISS")[0],astro_satTLE ("ISS")[1],astro_satTLE ("ISS")[2])
 	looptime = ephem.now()
 	while not exitloop:
@@ -203,7 +204,7 @@ def astro_satellitenextpass (satname,data,utc=False):
 		nxpass= location.next_pass (satellite)
 
 
-		if astro_satellitevisible (satname, "LYON", nxpass [2]) == "V":
+		if astro_satellitevisible (satname, "OULLINS", nxpass [2]) == "V":
 			
 			exitloop = True
 		else:
@@ -295,7 +296,7 @@ def astro_moonnextnew (DATETIME=None):
 		
 
 def astro_moonnphase ():
-	location = astro_obslocation ("LYON")
+	location = astro_obslocation ("OULLINS")
 	Moon = astro_ephemplanet ("Moon")
 	location.date = datetime.datetime.utcnow()
 	Moon.compute (location)
@@ -304,19 +305,19 @@ def astro_moonnphase ():
 
 
 def astro_obslocation (loc):
-
-	if loc == "LYON":
+	global elevation
+	if loc == "OULLINS":
+		location = ephem.Observer()
+		location.pressure = 0
+		location.horizon = '0'
+		location.elevation = elevation
+		location.lat, location.lon = '45.713809', '4.802196'
+	else: 
 		location = ephem.Observer()
 		location.pressure = 0
 		location.horizon = '0'
 		location.elevation = 162
-		location.lat, location.lon = '45.764', '4.835'
-	else:
-		location = ephem.Observer()
-		location.pressure = 0
-		location.horizon = '0'
-		location.elevation = 162
-		location.lat, location.lon = '45.764', '4.835'
+		location.lat, location.lon = '45.713809', '4.802196'
 	
 	return location
 
@@ -346,7 +347,7 @@ def astro_equinox_solstice (order):
  
 
 def astro_eclipses_computing (order):
-	location = astro_obslocation ("LYON")
+	location = astro_obslocation ("OULLINS")
 	DATETIME=ephem.now()
 	
 	ephemobj1 = astro_ephemplanet ("Sun")
@@ -373,7 +374,7 @@ def astro_eclipses_computing (order):
 
 		LCONE =  (dTS * rT) / (rS - rT)
 		rOMBRE = rT - (dLT * ((rS - rT) / (dLS - dLT)))
-		aOMBRE = atan (rOMBRE / dLT)
+		aOMBRE = math.atan (rOMBRE / dLT)
 	
 		angleLimite =astro_deg  (aOMBRE + ephemobj2.radius)
 		angleLimiteTotale = astro_deg  (aOMBRE - ephemobj2.radius)
@@ -395,7 +396,7 @@ def astro_eclipses_computing (order):
 	return  ephem.localtime (DATETIME).strftime('%Y-%m-%d %H:%M')
 
 def astro_sun_eclipses_computing (order):
-	location = astro_obslocation ("LYON")
+	location = astro_obslocation ("OULLINS")
 	DATETIME=ephem.now()
 	
 	Sun  = astro_ephemplanet ("Sun")
@@ -418,7 +419,7 @@ def astro_sun_eclipses_computing (order):
 
 		LCONE =  (dTS * rT) / (rS - rT)
 		rOMBRE = rT - (dLT * ((rS - rT) / (dLS - dLT)))
-		aOMBRE = atan (rOMBRE / dLT)
+		aOMBRE = math.atan (rOMBRE / dLT)
 	
 		angleLimite =astro_deg  (aOMBRE + Moon.radius)
 		angleLimiteTotale = astro_deg  (aOMBRE - Moon.radius)
@@ -446,13 +447,15 @@ def astro_sun_eclipses_computing (order):
 def astro_events_management ():
 	global scheduler
 	#followedObjects = ["ISS","Jupiter","Moon","Sun","Mercure","Venus","Saturn","Mars"]
-	followedObjects = ["Jupiter","Moon","Sun","Mercure","Venus","Saturn","Mars"]
+	followedObjects = ["Jupiter","Moon","Sun","Mercure","Venus","Saturn","Mars","ISS"]
 	print ("-----Start computing astro events")
 	for astroObj in followedObjects:
-		scheduler.print_jobs()
+		print ("Astro events for rising :" + astroObj )
+		#scheduler.print_jobs()
 		jobname = astroObj + "RISE"
 
 		if scheduler.get_job(jobname):
+				print ("Removing old schedule for " + jobname)
 				scheduler.remove_job(jobname)
 		
 		if astroObj == "ISS":
@@ -462,14 +465,15 @@ def astro_events_management ():
 			timetowait = 600
 
 		else :
-			print ("Passage ...")
+			
 			rise_time = astro_planetnextrising (astroObj,utc=True)
 			nbbeeps = 3
 			timetowait = 60 
-					 
+
+		print ("Adding schedule for " + jobname + " at " + rise_time)			 
 		scheduler.add_job(astro_rising_events,'date', run_date=rise_time,id=jobname,args =(astroObj,nbbeeps,timetowait))
 		
-		scheduler.print_jobs()
+		#scheduler.print_jobs()
 		
 	scheduler.print_jobs()
 	print ("-----Stop computing astro events")		
@@ -689,6 +693,7 @@ def lcd_clear (lcd):
 def log_database():
 	global node0,node1,client
 	global mqtt_brocker,topic,deviceid
+	global dbname
 	while (1):
 		delay (600000)
 		
@@ -701,7 +706,7 @@ def log_database():
 				node0["TEMP"] = None
 		
 			
-		conn=sqlite3.connect('/data/shared/station-meteo/database/dataenv')
+		conn=sqlite3.connect(dbname)
 		curs=conn.cursor()
 		curs.execute("INSERT INTO envtb(ts,node0TEMP,node0PRESSURE,node1TEMP,node1HUM) VALUES(?,?,?,?,?)",(node0["TIMESTAMP"],node0["TEMP"],node0["PRESSURE"],node1["TEMP"],node1["HUM"]))
 		conn.commit()
@@ -804,8 +809,8 @@ def mesure_bmp380():
 		
 		node0["TIMESTAMP"]=datetime.datetime.utcnow()
 		curtemp1 = node0["TEMP"]
-		print (node0["TIMESTAMP"].strftime('%b %d %H:%M:%S') + "   Temperature " + node0["LOCATION"] + " : " + node0["TEMP"]) 
-		print (node0["TIMESTAMP"].strftime('%b %d %H:%M:%S') + "   Pression " + node0["LOCATION"] + " : " + node0["PRESSURE"]) 
+		#print (node0["TIMESTAMP"].strftime('%b %d %H:%M:%S') + "   Temperature " + node0["LOCATION"] + " : " + node0["TEMP"]) 
+		#print (node0["TIMESTAMP"].strftime('%b %d %H:%M:%S') + "   Pression " + node0["LOCATION"] + " : " + node0["PRESSURE"]) 
 		curtemp1 = node0["TEMP"]
 		delay (15000)
 
@@ -1062,8 +1067,8 @@ lcd=lcd_init (1)
 #interrupts()
 
 
-#t6 = threading.Thread (target = mesure_bmp380)
-#t4 = threading.Thread (target = log_database)
+t6 = threading.Thread (target = mesure_bmp380)
+t4 = threading.Thread (target = log_database)
 #t3 = threading.Thread (target = rflink)
 
 #t2 = threading.Thread (target = mesure)
@@ -1074,8 +1079,8 @@ lcd=lcd_init (1)
 #t1.start()
 #t2.start()
 #t3.start()
-#t4.start()
-#t6.start()
+t4.start()
+t6.start()
 
 # downloading TLE for IIS
 downloadtle ()
@@ -1117,6 +1122,10 @@ jobs_management ()
 
 
 sleeping2 = False
+
+
+print ("Testing Buzzer")
+beep (5,100,0,128)
 
 
 screenbusy = False
