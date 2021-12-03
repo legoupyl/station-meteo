@@ -21,13 +21,6 @@ docker run --detach \
 
 docker run --detach \
     --name grafana \
-    --env "VIRTUAL_HOST=m.legoupyl.com" \
-    --env "LETSENCRYPT_HOST=m.legoupyl.com" \
-    nginx
-
-
-docker run --detach \
-    --name grafana \
     --env "VIRTUAL_HOST=m.legoupyl.com/" \
     --env "VIRTUAL_PORT=3000" \
     --env "LETSENCRYPT_HOST=m.legoupyl.com" \
