@@ -26,3 +26,7 @@ docker run --detach \
     --env "LETSENCRYPT_HOST=m.legoupyl.com" \
     --env "LETSENCRYPT_EMAIL=marta.xavier@hotmail.fr" \
     grafana/grafana
+
+
+If force renew of cert required :
+docker exec nginx-proxy-acme /app/force_renew
