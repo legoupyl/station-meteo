@@ -3,15 +3,12 @@ MAINTAINER xavfan
 RUN apk update && apk add bash
 
 
-#RUN apk add --update --no-cache mariadb-client-libs \
-#	&& apk add --no-cache --virtual .build-deps \
-#		mariadb-dev \
-#		gcc \
-#		musl-dev \
-#	&& pip install mysqlclient \
-#	&& apk del .build-deps
+RUN apk update \
+    && apk add --virtual build-deps gcc python3-dev musl-dev \
+    && apk add --no-cache mariadb-dev
 
 RUN pip3 install mysqlclient
+RUN apk del build-deps
 RUN pip3 install paho-mqtt
 COPY mqtt-db-logger.py /data/
 
