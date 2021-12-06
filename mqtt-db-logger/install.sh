@@ -2,9 +2,10 @@ docker build . xavfan/mqtt-db-logger
 docker run --name mqtt-db-logger mqtt-db-logger bash
 sudo mkdir /data
 chmod 777 /data
-cp mqtt-db-logger.py /data/
+mkdir /data/mqtt-db-logger/
+cp mqtt-db-logger.py /data/mqtt-db-logger/
 
-cd /data
+cd /data/mqtt-db-logger/
 
 cat <<EOT >> mqtt_db_logger_conf.py
 mqtt_brocker="####.cloudapp.net"
