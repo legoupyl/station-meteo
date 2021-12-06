@@ -33,5 +33,5 @@ docker run --detach \
 If force renew of cert required :
 docker exec nginx-proxy-acme /app/force_renew
 
-docker run --restart unless-stopped --name mqtt-broker eclipse-mosquitto
+docker run --restart unless-stopped -p 1883:1883 --name mqtt-broker eclipse-mosquitto
 
