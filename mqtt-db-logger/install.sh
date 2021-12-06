@@ -15,3 +15,6 @@ db_name="#####"
 db_username="###"
 db_user_pwd="####"
 EOT
+
+
+docker run -it -v /data/mqtt-db-logger:/data --name mqtt-db-logger mqtt-db-logger bash
