@@ -10,8 +10,6 @@ RUN apk update \
 RUN pip3 install mysqlclient
 RUN apk del build-deps
 RUN pip3 install paho-mqtt
-COPY mqtt-db-logger.py /data/
-
 
 EXPOSE 1883
 WORKDIR  /data/
