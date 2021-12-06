@@ -1,3 +1,3 @@
-mqtt_brocker="docker1-in8r552d.cloudapp.net"
+mqtt_brocker="m.legoupyl.com"
 topic="xavfan/data"
 deviceid="station_lyon_1"
