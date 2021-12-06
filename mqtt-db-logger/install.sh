@@ -17,4 +17,4 @@ db_user_pwd="####"
 EOT
 
 
-docker run -it -v /data/mqtt-db-logger:/data --name mqtt-db-logger mqtt-db-logger bash
+docker run -it --restart unless-stopped -v /data/mqtt-db-logger:/data --name mqtt-db-logger mqtt-db-logger python mqtt-db-logger.py
