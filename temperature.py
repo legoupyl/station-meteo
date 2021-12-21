@@ -1,6 +1,12 @@
 #!/usr/bin/env python
+#exit()
 
 import os
+os.chdir("/home/pi/station-meteo")
+
+#import sys
+#sys.stdout = open('/home/pi/station-meteo/temperature.log', 'w')
+
 import datetime
 import sqlite3
 import serial
@@ -50,6 +56,11 @@ metadata = MetaData()
 
 sleeping2 = False
 
+def logMsg (message):
+	print (time.strftime('%Y-%m-%d_%H:%M:%S') + "   " + message)
+
+logMsg ("Variable initialisation")
+
 
 
 ## Variables
@@ -69,21 +80,21 @@ gpioKeyboard=40 #ou 13
 
 
 #Variables Azure IOT
-hubAddress = "XFAIOTHUB1.azure-devices.net"
-deviceId = "rpi1"
-deviceKey = 'bAPQ0uQmsSotmEEoDCGtNfVReYYNxq8i4SJVh0dwI58='
+#hubAddress = "XFAIOTHUB1.azure-devices.net"
+#deviceId = "rpi1"
+#deviceKey = 'bAPQ0uQmsSotmEEoDCGtNfVReYYNxq8i4SJVh0dwI58='
 
-hubUser = hubAddress + '/' + deviceId
-endpoint = hubAddress + '/devices/' + deviceId
-hubTopicPublish = 'devices/' + deviceId + '/messages/events/'
-hubTopicSubscribe = 'devices/' + deviceId + '/messages/devicebound/#'
-
-
+#hubUser = hubAddress + '/' + deviceId
+#endpoint = hubAddress + '/devices/' + deviceId
+#hubTopicPublish = 'devices/' + deviceId + '/messages/events/'
+#hubTopicSubscribe = 'devices/' + deviceId + '/messages/devicebound/#'
 
 
 
 
 
+
+logMsg ("Scheduler initialisation")
 
 # initalisation du scheduler
 jobstores = {
@@ -103,17 +114,10 @@ scheduler = BackgroundScheduler(jobstores=jobstores, executors=executors, job_de
 
 
 
-#Liste des materiels Oregon pour lesquels une conversion de temperature est necessaire.
-oregon_probes = dict()
-oregon_probes ["Oregon BTHR"]= 1
-oregon_probes ["Oregon TempHygro"]= 1
-
-
-
 # Initialisation des PIN
 
 buzzer_pin = 22 #15
-print ("Initializing buzzer PIN " + str(buzzer_pin))
+logMsg ("Initializing buzzer PIN " + str(buzzer_pin))
 GPIO.setup(buzzer_pin, GPIO.OUT)
 
 
@@ -134,7 +138,11 @@ probe1id="ID=2DFC"
 txcmd= list()
 
 
+
+
+
 #initialisation du scheduler
+
 
 
 #fonctions astro
@@ -156,6 +164,9 @@ def astro_ephemplanet (planet):
 	if planet == "Mercure":
 		planetObject = ephem.Mercury()
 	return planetObject
+
+
+
 
 
 def astro_planetnexttransit (planet):
@@ -203,8 +214,11 @@ def astro_satellitenextpass (satname,data,utc=False):
 		satellite.compute(location)
 		nxpass= location.next_pass (satellite)
 
-
+		
 		if astro_satellitevisible (satname, "OULLINS", nxpass [2]) == "V":
+			#logMsg ("ISS NextPass : " + str(nxpass [2]))
+			#logMsg ("ISS Magnitude" + str(astro_satelliteMagnitude(satname, "OULLINS", nxpass [2])))
+			#logMsg ("ISS Coord :" + str(astro_satelliteazimuth (satname,  "OULLINS", nxpass [2])))
 			
 			exitloop = True
 		else:
@@ -261,6 +275,43 @@ def astro_satellitevisible (satname, loc, utctime):
 	else:
 		return "S"
 
+
+def astro_satelliteMagnitude (satname, loc, utctime):
+	# consts
+	degrees_per_rad = 180.0 / math.pi
+	au = 149597892
+	location = astro_obslocation (loc)
+	location.date = utctime
+	ephobject = astro_pyephsatellite (satname)
+	ephobject.compute(location)
+	sun = ephem.Sun()
+	sun.compute(location)
+	iss_std_mag = -1.3
+	std_mag = iss_std_mag
+
+	# all times in UTC
+	# compare with: https://heavens-above.com/passdetails.aspx?lat=40.7128&lng=-74.0060&loc=Unspecified&alt=0&tz=UCT&satid=25544&mjd=58883.9610767747&type=V
+
+	
+
+	actual_sat_range = (ephobject.range - ephem.earth_radius) / 1000
+
+	a = sun.earth_distance * au # - ephem.earth_radius/1000 - 695510 # Km
+	b = ephobject.range / 1000
+	angle_c = ephem.separation( (ephobject.az, ephobject.alt), (sun.az, sun.alt) )
+
+	c = math.sqrt(math.pow(a, 2) + math.pow(b, 2) - 2*a*b*math.cos(angle_c))
+
+	phase_angle = math.acos((math.pow(b, 2) + math.pow(c, 2) - math.pow(a, 2)) / (2 * b * c))
+
+	term1 = std_mag
+	term2 = 5.0 * math.log10(b / 1000)
+
+	arg = math.sin(phase_angle) + (math.pi - phase_angle) * math.cos(phase_angle)
+	term3 = -2.5 * math.log10(arg)
+
+	apparent_mag = term1 + term2 + term3
+	return apparent_mag
 
 	
 
@@ -342,7 +393,7 @@ def astro_equinox_solstice (order):
 	alldateslist = lstdic.keys ()
 	for eventdate in sorted (lstdic.keys ()):
 		resultat.append (lstdic [eventdate] + " :" + eventdate)
-		print(lstdic [eventdate] + " :" + eventdate)
+		logMsg(lstdic [eventdate] + " :" + eventdate)
 	return resultat
  
 
@@ -383,14 +434,14 @@ def astro_eclipses_computing (order):
 			i = i +1
 			
 			if 180 - sep < angleLimiteTotale :
-				print ("====== Eclipse totale : " + str (DATETIME))
+				logMsg ("====== Eclipse totale : " + str (DATETIME))
 			else:
-				print ("====== Eclipse partielle : " + str (DATETIME))
-			print ("***** Date : " + str (DATETIME))
-			print ("Separation Lune / Soleil " + str (sep))
-			print ("Angle limite eclipse : " + str (angleLimite))
-			print ("Demi Taille lune :" + str (astro_deg (ephemobj2.radius)))
-			print ("Demi Taille ombre en degres   :" + str (astro_deg (aOMBRE)))
+				logMsg ("====== Eclipse partielle : " + str (DATETIME))
+			logMsg ("***** Date : " + str (DATETIME))
+			logMsg ("Separation Lune / Soleil " + str (sep))
+			logMsg ("Angle limite eclipse : " + str (angleLimite))
+			logMsg ("Demi Taille lune :" + str (astro_deg (ephemobj2.radius)))
+			logMsg ("Demi Taille ombre en degres   :" + str (astro_deg (aOMBRE)))
 
 
 	return  ephem.localtime (DATETIME).strftime('%Y-%m-%d %H:%M')
@@ -432,14 +483,14 @@ def astro_sun_eclipses_computing (order):
 			i = i +1
 			
 			if 180 - sep < angleLimiteTotale :
-				print ("====== Eclipse totale : " + str (DATETIME))
+				logMsg ("====== Eclipse totale : " + str (DATETIME))
 			else:
-				print ("====== Eclipse partielle : " + str (DATETIME))
-			print ("***** Date : " + str (DATETIME))
-			print ("Separation Lune / Soleil " + str (sep))
-			print ("Angle limite eclipse : " + str (angleLimite))
-			print ("Demi Taille lune :" + str (astro_deg (Moon.radius)))
-			print ("Demi Taille ombre en degres   :" + str (astro_deg (aOMBRE)))
+				logMsg ("====== Eclipse partielle : " + str (DATETIME))
+			logMsg ("***** Date : " + str (DATETIME))
+			logMsg ("Separation Lune / Soleil " + str (sep))
+			logMsg ("Angle limite eclipse : " + str (angleLimite))
+			logMsg ("Demi Taille lune :" + str (astro_deg (Moon.radius)))
+			logMsg ("Demi Taille ombre en degres   :" + str (astro_deg (aOMBRE)))
 
 
 	return  ephem.localtime (DATETIME).strftime('%Y-%m-%d %H:%M')
@@ -448,14 +499,14 @@ def astro_events_management ():
 	global scheduler
 	#followedObjects = ["ISS","Jupiter","Moon","Sun","Mercure","Venus","Saturn","Mars"]
 	followedObjects = ["Jupiter","Moon","Sun","Mercure","Venus","Saturn","Mars","ISS"]
-	print ("-----Start computing astro events")
+	logMsg ("-----Start computing astro events")
 	for astroObj in followedObjects:
-		print ("Astro events for rising :" + astroObj )
-		#scheduler.print_jobs()
+		logMsg ("Astro events for rising :" + astroObj )
+		#scheduler.logMsg_jobs()
 		jobname = astroObj + "RISE"
 
 		if scheduler.get_job(jobname):
-				print ("Removing old schedule for " + jobname)
+				logMsg ("Removing old schedule for " + jobname)
 				scheduler.remove_job(jobname)
 		
 		if astroObj == "ISS":
@@ -470,26 +521,30 @@ def astro_events_management ():
 			nbbeeps = 3
 			timetowait = 60 
 
-		print ("Adding schedule for " + jobname + " at " + rise_time)			 
+		logMsg ("Adding schedule for " + jobname + " at " + rise_time)			 
 		scheduler.add_job(astro_rising_events,'date', run_date=rise_time,id=jobname,args =(astroObj,nbbeeps,timetowait))
 		
-		#scheduler.print_jobs()
+		#scheduler.logMsg_jobs()
 		
 	scheduler.print_jobs()
-	print ("-----Stop computing astro events")		
+	logMsg ("-----Stop computing astro events")		
 
 def astro_rising_events (objectname,nbbeeps,timetowait):
 	global screenbusy
+	logMsg ("Rising object event :" + objectname)
 	if not screenbusy:
 		screenbusy = True
 		delay (1000)
+		logMsg ("Start beep trigger")
 		tbeep = threading.Thread (target = beep, args=(nbbeeps,50,25, 10))
 		tbeep.start ()
 
 		if objectname == "ISS":
+			logMsg ("Start beep trigger 2 for ISS")
 			tbeep2 = threading.Thread (target = beep, args=(40,20,15000,10,30000))
 			tbeep2.start ()	
 		
+		logMsg ("Start object screen__" + objectname.lower () +"  timetowait : " + str(timetowait))
 		screen_general2 (screenslist ["screen__"+ objectname.lower ()] ,timetowait, lck = True)
 		
 		screenbusy = False
@@ -501,11 +556,11 @@ def downloadfile (src, tgtdir,tgtfile):
 	try :
 		dl_fichier= wget.download(src, tgtdir)
 	except: 
-		print ("Erreur chargement fichier TLE : " + src + "vers : " + tgtdir )
+		logMsg ("Erreur chargement fichier TLE : " + src + "vers : " + tgtdir )
 
 		pass
 	
-	print ("file downloaded : " + str (dl_fichier))
+	logMsg ("file downloaded : " + str (dl_fichier))
 	if os.path.isfile(str (dl_fichier)):
 		
 		if os.path.isfile(tgtdir + "/" + tgtfile):
@@ -516,50 +571,15 @@ def downloadfile (src, tgtdir,tgtfile):
 
 
 
-#Initialisation des sondes et interrupeurs
 
-node0 = dict ()
-node0["ID"]="0000"
-node0["CATEGORY"]="PROBE"
-node0["DEVICETYPE"]="PCDUINO"
-node0["LOCATION"]="Salon"
-node0["TEMP"]= None
-node0["PRESSURE"]= None
-node0["TIMESTAMP"]= None
+def getNodes (nodes,nodeID):
+	for nodeNum in nodes:
+		if nodes[nodeNum]["ID"] == nodeID:
+			return nodeNum
+	return None
 
-node1 = dict ()
-node1["ID"]="2DFC"
-node1["CATEGORY"]="PROBE"
-node1["DEVICETYPE"]="Oregon TempHygro"
-node1["LOCATION"]="Balcon"
-node1["TEMP"]= None
-node1["HUM"]= None 
-node1["TIMESTAMP"]= None
 
-node2 = dict ()
-node2["ID"]="XX"
-node2["CATEGORY"]="PLUG"
-node2["DEVICETYPE"]="PLUG"
-node2["CMDON"]=b'10;TriState;08808a;2;ON;\n\r'
-node2["CMDOFF"]=b'10;TriState;08808a;2;ON;\n\r'
 
-node3 = dict ()
-node3["ID"]="XX"
-node3["CATEGORY"]="PLUG"
-node3["DEVICETYPE"]="PLUG"
-node3["CMDON"]=b'10;TriState;08802a;2;ON;\n\r'
-node3["CMDOFF"]=b'10;TriState;08802a;2;ON;\n\r'
-
-# boutton 1 - ON de la telecommande
-node4 = dict ()
-node4["ID"]="5b"
-node4["SWITCH"]="28"
-node4["CATEGORY"]="RC"
-node4["DEVICETYPE"]="RC"
-node4["CMDON"]=""
-node4["CMD"]="ON"
-node4["CMDON"]=""
-node4["CMDOFF"]=""
 
 
 #fonctions a declarer au depart
@@ -601,7 +621,7 @@ def screen_list ():
 
 
 def rf_readparam(line):
-
+	global node
 	paramslist=line.split (";")
 	paramdico = {}
 
@@ -613,12 +633,15 @@ def rf_readparam(line):
 		paramdico["RXTX"] = paramslist [0]
 		paramdico["TXID"] = paramslist [1]
 		paramdico["DEVICETYPE"] = paramslist [2]
-		
+	
 		for i in range (3,len (paramslist)):
 			paramlist=paramslist[i].split ("=")
 			if len (paramlist) == 2:	
 				paramdico[paramlist[0]] = paramlist[1]
-		paramdico = meteo_oregontempformat (paramdico,oregon_probes)
+		nodeNum = getNodes (node,paramdico["ID"])
+		if nodeNum:
+			if node[nodeNum].get("TEMPFormat"):
+				paramdico = meteo_tempformat (paramdico,node[nodeNum].get("TEMPFormat"))
 	return paramdico
 
 def meteo_hexatodectemp (temperaturehexa):
@@ -632,10 +655,9 @@ def meteo_hexatodectemp (temperaturehexa):
 	
 	return dectemp
 
-def meteo_oregontempformat (params,oregon_probes):
-	if ('DEVICETYPE' in params.keys()) and ('TEMP' in params.keys()) :
-		if params ['DEVICETYPE'] in oregon_probes.keys():
-			params ["TEMP"]= meteo_hexatodectemp (params ["TEMP"])
+def meteo_tempformat (params,TEMPFormat):
+	if TEMPFormat=='oregon':
+		params ["TEMP"]= meteo_hexatodectemp (params ["TEMP"])
 	return params
 
 
@@ -691,82 +713,95 @@ def lcd_clear (lcd):
 		
 
 def log_database():
-	global node0,node1,client
-	global mqtt_brocker,topic,deviceid
-	global dbname
+	global node,client
+	global mqtt_brocker,topic
+	global dbname,measureList
 	while (1):
-		delay (600000)
+		delay (300000)
 		
-		if 	node1["TIMESTAMP"] != None:
-			if datetime.datetime.utcnow() - node1["TIMESTAMP"] >  datetime.timedelta(seconds=900):
-				node1["TEMP"] = None
-				node1["HUM"] = None
-		if 	node0["TIMESTAMP"] != None:
-			if datetime.datetime.utcnow() - node0["TIMESTAMP"] >  datetime.timedelta(seconds=900):
-				node0["TEMP"] = None
-		
-			
-		conn=sqlite3.connect(dbname)
-		curs=conn.cursor()
-		curs.execute("INSERT INTO envtb(ts,node0TEMP,node0PRESSURE,node1TEMP,node1HUM) VALUES(?,?,?,?,?)",(node0["TIMESTAMP"],node0["TEMP"],node0["PRESSURE"],node1["TEMP"],node1["HUM"]))
-		conn.commit()
-		conn.close()
 
-		json_msg  = json.dumps({ 
-			'deviceid' : deviceid ,
-			'temp_ext_0' : node1["TEMP"],
-			'hum_ext_0' : node1["HUM"],
-			'pres_int_0' : node0["PRESSURE"],
-			'temp_int_0' : node0["TEMP"]
-			})
+	# disable node[1]
+#		node[1]["TEMP"]=0
+		#node[1]["HUM"]=0
+
+
+#		conn=sqlite3.connect(dbname)
+#		curs=conn.cursor()
+#		curs.execute("INSERT INTO envtb(ts,node0TEMP,node0PRESSURE,node1TEMP,node1HUM) VALUES(?,?,?,?,?)",(node[0]["TIMESTAMP"],node[0]["TEMP"],node[0]["PRESSURE"],node[1]["TEMP"],node[1]["HUM"]))
+#		conn.commit()
+#		conn.close()
+
+
+		for nodeNum in node:
+			if node[nodeNum]["CATEGORY"]=="PROBE":
+				if node[nodeNum].get("TIMESTAMP"):
+					if node[nodeNum]["TIMESTAMP"] != None:
+						if datetime.datetime.utcnow() - node[nodeNum]["TIMESTAMP"] >  datetime.timedelta(seconds=900):
+							for measure in measureList:
+								if node[nodeNum].get(measure):
+									node[nodeNum][measure]=None
+				jsonDic={'deviceid' : node[nodeNum]["deviceid"]}
+				for measure in measureList:
+					if node[nodeNum].get(measure):
+						jsonDic[measure]=node[nodeNum][measure]
+				json_msg=json.dumps(jsonDic)
+
 		# encoded_message = json.dumps(json_message).encode('utf8')
-		print ("Sending data  to Brocker  :  " + str(json_msg))
-		print (mqtt_brocker + "    -    " + topic)
-		send_msg (mqtt_brocker,topic,str(json_msg))
-		
+				logMsg ("Sending data  to Brocker  :  " + str(json_msg))
+				logMsg (mqtt_brocker + "    -    " + topic)
+				send_msg (mqtt_brocker,topic,str(json_msg))
+
+
 def interruption0 ():
 	global inter_state0
-	print ("Interruption0")
+	logMsg ("Interruption0")
 	inter_state0 = True
 
 def interruption1(test):
 	global inter_state1,sleeping2
-	print ("Interruption1")
+	logMsg ("Interruption1")
 	touchdata= cap.touched()
 	if touchdata != 0 :
-		print (str(touchdata))
+		logMsg (str(touchdata))
 		inter_state1 = touchdata
 	beep (1,100,0,128)
 	sleeping2 = False
 
 	
 def rflink():
-	global curtemp2, curhumidity2,probe1,txcmd,infoscreen,infoscreen_enable
+	global curtemp2, curhumidity2,probe1,txcmd,infoscreen,infoscreen_enable,measureList
 	with serial.Serial('/dev/ttyACM0', 57600, timeout=1,bytesize=serial.EIGHTBITS,parity=serial.PARITY_NONE,stopbits=serial.STOPBITS_ONE) as ser:
-
+	#with serial.Serial('/dev/ttyAMA0', 57600, timeout=1,bytesize=serial.EIGHTBITS,parity=serial.PARITY_NONE,stopbits=serial.STOPBITS_ONE) as ser:
 		ser.rts = True
 		line = ser.readline()	   # read a '\n' terminated line
 
 		while (1):
+			
 			line = ser.readline()	   # read a '\n' terminated line
 			line = line.decode('utf-8')
 			if (line != ""):
 	
-				print (line)
+				logMsg (line)
 				dicoparams = rf_readparam (line)
-			# cas node1
-				if dicoparams["ID"] == node1["ID"]:
-					node1["TEMP"]= dicoparams["TEMP"]
-					node1["HUM"]= dicoparams["HUM"]
-					node1["TIMESTAMP"]=datetime.datetime.utcnow()
-					print (node1["TIMESTAMP"].strftime('%b %d %H:%M:%S') + "   Temperature " + node1["LOCATION"] + " : " + str(node1["TEMP"]))
-					print (node1["TIMESTAMP"].strftime('%b %d %H:%M:%S') + "   Humidite " + node1["LOCATION"] + " : " + str(node1["HUM"]))
-			# cas node4 (Remote control
-				if dicoparams["ID"] == node4["ID"]:
-					if dicoparams["SWITCH"] == node4["SWITCH"] and dicoparams["CMD"] == node4["CMD"]:
+			# cas node[1]
+
+				nodeNum=getNodes (node,dicoparams["ID"])
+				if nodeNum:
+					for measure in measureList:
+						if dicoparams.get(measure):
+							node[nodeNum][measure]= dicoparams[measure]
+							node[nodeNum]["TIMESTAMP"]=datetime.datetime.utcnow()
+							logMsg (node[nodeNum]["TIMESTAMP"].strftime('%b %d %H:%M:%S') +" " + measure + " " + node[nodeNum]["LOCATION"] + " : " + str(node[nodeNum][measure]))
+
+
+
+			# cas node[4] (Remote control
+			# cas node[4] (Remote control
+				if dicoparams["ID"] == node[4]["ID"]:
+					if dicoparams["SWITCH"] == node[4]["SWITCH"] and dicoparams["CMD"] == node[4]["CMD"]:
 						infoscreen_enable = True
 						infoscreen =  screen__allplugs_result 
-						txcmd.append (node2["CMDON"] + node3["CMDON"])
+						txcmd.append (node[2]["CMDON"] + node[3]["CMDON"])
 			delay (100)
 			for cmd in txcmd:
 				ser.write (cmd)
@@ -775,7 +810,7 @@ def rflink():
 				
 
 def mesure():
-	global curtemp1,node0
+	global curtemp1,node
 	while(1):
 		mesurelist =[]
 		for i in range (0,1000):
@@ -786,40 +821,40 @@ def mesure():
 		temperature_C =((volts - 0.5)*100) - 1.2
 		curtemp1 = "%4.1f" % temperature_C
 		curvoltage1="volts = %5.3f V" % volts
-		node0["TEMP"]="%4.1f" % temperature_C
-		node0["TIMESTAMP"]=datetime.datetime.utcnow()
+		node[0]["TEMP"]="%4.1f" % temperature_C
+		node[0]["TIMESTAMP"]=datetime.datetime.utcnow()
 
-		#curtemp1 = node0["TEMP"]
-		print (node0["TIMESTAMP"].strftime('%b %d %H:%M:%S') + "   Temperature " + node0["LOCATION"] + " : " + node0["TEMP"]) 
+		#curtemp1 = node[0]["TEMP"]
+		logMsg (node[0]["TIMESTAMP"].strftime('%b %d %H:%M:%S') + "   Temperature " + node[0]["LOCATION"] + " : " + node[0]["TEMP"]) 
 		delay (15000)
 
 
 def mesure_bmp380():
-	global curtemp1,node0
+	global curtemp1,node
 
 	while (1):
-		node0["TEMP"],node0["PRESSURE"],vide = bme280.readBME280All()
-		if node0["PRESSURE"] != None:
+		node[0]["TEMP"],node[0]["PRESSURE"],vide = bme280.readBME280All()
+		if node[0]["PRESSURE"] != None:
 			# correction en altitude
-			node0["PRESSURE"]=node0["PRESSURE"] + (pressureelevation * elevation)
+			node[0]["PRESSURE"]=node[0]["PRESSURE"] + (pressureelevation * elevation)
 
-		node0["TEMP"]="%4.1f" % node0["TEMP"]
-		node0["PRESSURE"]="%4.1f" % node0["PRESSURE"]
+		node[0]["TEMP"]="%4.1f" % node[0]["TEMP"]
+		node[0]["PRESSURE"]="%4.1f" % node[0]["PRESSURE"]
 		
 		
-		node0["TIMESTAMP"]=datetime.datetime.utcnow()
-		curtemp1 = node0["TEMP"]
-		#print (node0["TIMESTAMP"].strftime('%b %d %H:%M:%S') + "   Temperature " + node0["LOCATION"] + " : " + node0["TEMP"]) 
-		#print (node0["TIMESTAMP"].strftime('%b %d %H:%M:%S') + "   Pression " + node0["LOCATION"] + " : " + node0["PRESSURE"]) 
-		curtemp1 = node0["TEMP"]
+		node[0]["TIMESTAMP"]=datetime.datetime.utcnow()
+		curtemp1 = node[0]["TEMP"]
+		#print (node[0]["TIMESTAMP"].strftime('%b %d %H:%M:%S') + "   Temperature " + node[0]["LOCATION"] + " : " + node[0]["TEMP"]) 
+		#print (node[0]["TIMESTAMP"].strftime('%b %d %H:%M:%S') + "   Pression " + node[0]["LOCATION"] + " : " + node[0]["PRESSURE"]) 
+		curtemp1 = node[0]["TEMP"]
 		delay (15000)
 
 
 # gestion des ecrans ...............
 	
 def screen_main():
-	global node0
-	lcd_echo (lcd,datetime.datetime.now().strftime('%b %d %H:%M:%S'),"Int T:" + str(node0["TEMP"])+ " P:"+ str(node0["PRESSURE"]),"T balcon :" + str(node1["TEMP"]),"HUM balcon :" + str(node1["HUM"])+"%")
+	global node
+	lcd_echo (lcd,datetime.datetime.now().strftime('%b %d %H:%M:%S'),"Int T:" + str(node[0]["TEMP"])+ " P:"+ str(node[0]["PRESSURE"]),"T balcon :" + str(node[1]["TEMP"]),"HUM balcon :" + str(node[5]["HUM"])+"%")
 
 
 
@@ -878,6 +913,8 @@ def screen_general2 (dicscreen,timetowait,lck = False):
 	start_time=time.time()
 	
 	t_end = time.time() + timetowait
+	logMsg ("Displaying screenGeneral2 for : " + str(timetowait) + " s" )
+	
 	while time.time() < t_end:
 		
 		delay(50)
@@ -916,7 +953,7 @@ def screen_general2 (dicscreen,timetowait,lck = False):
 			inter_state1 = 0
 			return "RIGHT"
 		if(inter_state1 == keypad["button_lock"] or status_lck):	
-			print ("Locking menu")
+			logMsg ("Locking menu")
 			if status_lck:
 				timetowait2 = timetowait
 			else:
@@ -932,7 +969,7 @@ def screen_general2 (dicscreen,timetowait,lck = False):
 			inter_state1 = 0
 			inter_state0 = False
 			return ""
-
+	logMsg ("End Displaying screengeneral2")
 	inter_state1 == 0
 	lcd_clear (lcd)
 	return ""
@@ -940,7 +977,7 @@ def screen_general2 (dicscreen,timetowait,lck = False):
 def interruption1_set (x):
 	global inter_state1
 	inter_state1 = x
-	print (x)
+	logMsg (x)
 
 def screen_mirror_window ():
 	global tkline1,tkline2,tkline3,tkline4
@@ -1002,9 +1039,11 @@ def meteo_GetExtrema (colonne,ExtremaType,deltadays):
 
 #Telechargement du fichier TLE
 def downloadtle ():
+	logMsg ("Loading TLE File" + isstelefile)
 	try:
 		downloadfile (isstleurl,tledirectory,isstelefile)
 	except:
+		logMsg ("ERR :Loading TLE File" + isstelefile)
 		pass
 	
 
@@ -1052,13 +1091,20 @@ def jobs_management ():
 
 def send_msg (mqtt_brocker,topic,json_msg):
 	try:
+		logMsg ("Sending json Message to broker")
 		client = mqtt.Client()
 		client.connect(mqtt_brocker,1883,60)
 		client.publish(topic, str (json_msg));
 		client.disconnect();
 	except:
+		logMsg ("ERR: Sending json Message to broker")
 		pass
 
+
+
+
+
+logMsg ("LCD INIT")
 lcd=lcd_init (1)
 
 #noInterrupts()
@@ -1066,19 +1112,19 @@ lcd=lcd_init (1)
 #attachInterrupt(1,interruption1,FALLING)
 #interrupts()
 
-
+logMsg ("Creating threads")
 t6 = threading.Thread (target = mesure_bmp380)
 t4 = threading.Thread (target = log_database)
-#t3 = threading.Thread (target = rflink)
+t3 = threading.Thread (target = rflink)
 
 #t2 = threading.Thread (target = mesure)
 #t1 = threading.Thread (target = led_blinking)
 #t0 = threading.Thread (target = screen_mirror_window)
-
+logMsg ("Starting threads")
 #t0.start()
 #t1.start()
 #t2.start()
-#t3.start()
+t3.start()
 t4.start()
 t6.start()
 
@@ -1090,10 +1136,12 @@ inter_state1 = 0
 
 infoscreen_enable = False
 infoscreen=dict()
+
+logMsg ("Keyboard initialization")
 #Initialisation clavier mpr121
 cap = MPR121.MPR121()
 if not cap.begin():
-    print('Failed to initialize MPR121, check your wiring!')
+    logMsg('Failed to initialize MPR121, check your wiring!')
     sys.exit(1)
 
 
@@ -1105,6 +1153,7 @@ atexit.register(GPIO.cleanup)
 cap.touched()
 
 # generate screens from database
+logMsg ("Generating screen list from database")
 screenslist = screen_list ()
 
 
@@ -1116,6 +1165,7 @@ menuroot = {1:screenslist["screen__folder_lights"],2:screenslist["screen__folder
 
 
 # lancement des jobs
+logMsg ("Starting Scheduler management")
 jobs_management ()
 
 #astro_equinox_solstice ()
@@ -1123,8 +1173,7 @@ jobs_management ()
 
 sleeping2 = False
 
-
-print ("Testing Buzzer")
+logMsg ("Testing Buzzer")
 beep (5,100,0,128)
 
 
@@ -1141,17 +1190,17 @@ while (1):
 		if inter_state1==8 :
 			infoscreen_enable = True
 			infoscreen =  screenslist ["screen__plug1_result"] 
-			txcmd.append (node3["CMDON"])
+			txcmd.append (node[3]["CMDON"])
 			inter_state1 = 0
 		if inter_state1==128 :
 			infoscreen_enable = True
 			infoscreen =  screenslist ["screen__plug2_result"] 
-			txcmd.append (node2["CMDON"])
+			txcmd.append (node[2]["CMDON"])
 			inter_state1 = 0
 		if inter_state1==2048 :
 			infoscreen_enable = True
 			infoscreen =  screenslist ["screen__allplugs_result"] 
-			txcmd.append (node2["CMDON"] + node3["CMDON"])
+			txcmd.append (node[2]["CMDON"] + node[3]["CMDON"])
 			inter_state1 = 0
 
 		if inter_state1== keypad["button_sleep"] :

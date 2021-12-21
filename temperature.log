@@ -1,0 +1,349 @@
+2021-12-21_14:23:14   Variable initialisation
+2021-12-21_14:23:14   Scheduler initialisation
+2021-12-21_14:23:14   Initializing buzzer PIN 22
+2021-12-21_14:23:14   LCD INIT
+2021-12-21_14:23:14   Creating threads
+2021-12-21_14:23:14   Starting threads
+2021-12-21_14:23:14   Loading TLE Fileiss_tle.txt
+2021-12-21_14:23:15   file downloaded : ./tle//stations.txt
+2021-12-21_14:23:15   Keyboard initialization
+2021-12-21_14:23:16   Generating screen list from database
+2021-12-21_14:23:16   Starting Scheduler management
+Jobstore default:
+    astro_events_management (trigger: interval[1:00:00], next run at: 2021-12-21 14:23:18 UTC)
+    astro_rising_events (trigger: date[2021-12-21 17:54:19 UTC], next run at: 2021-12-21 17:54:19 UTC)
+    astro_rising_events (trigger: date[2021-12-22 05:28:37 UTC], next run at: 2021-12-22 05:28:37 UTC)
+    astro_rising_events (trigger: date[2021-12-22 05:56:12 UTC], next run at: 2021-12-22 05:56:12 UTC)
+    astro_rising_events (trigger: date[2021-12-22 07:23:01 UTC], next run at: 2021-12-22 07:23:01 UTC)
+    astro_rising_events (trigger: date[2021-12-22 08:30:06 UTC], next run at: 2021-12-22 08:30:06 UTC)
+    astro_rising_events (trigger: date[2021-12-22 08:59:00 UTC], next run at: 2021-12-22 08:59:00 UTC)
+    astro_rising_events (trigger: date[2021-12-22 09:49:39 UTC], next run at: 2021-12-22 09:49:39 UTC)
+    astro_rising_events (trigger: date[2021-12-22 10:35:05 UTC], next run at: 2021-12-22 10:35:05 UTC)
+    downloadtle (trigger: interval[1 day, 0:00:00], next run at: 2021-12-22 13:23:18 UTC)
+2021-12-21_14:23:18   -----Start computing astro events
+2021-12-21_14:23:18   Astro events for rising :Jupiter
+2021-12-21_14:23:18   Removing old schedule for JupiterRISE
+2021-12-21_14:23:18   Adding schedule for JupiterRISE at 2021-12-22 10:35:05
+2021-12-21_14:23:18   Astro events for rising :Moon
+2021-12-21_14:23:18   Removing old schedule for MoonRISE
+2021-12-21_14:23:19   Adding schedule for MoonRISE at 2021-12-21 17:54:19
+2021-12-21_14:23:19   Astro events for rising :Sun
+2021-12-21_14:23:19   Removing old schedule for SunRISE
+2021-12-21_14:23:19   Adding schedule for SunRISE at 2021-12-22 07:23:01
+2021-12-21_14:23:19   Astro events for rising :Mercure
+2021-12-21_14:23:19   Removing old schedule for MercureRISE
+2021-12-21_14:23:19   Adding schedule for MercureRISE at 2021-12-22 08:30:06
+2021-12-21_14:23:19   Astro events for rising :Venus
+2021-12-21_14:23:19   Removing old schedule for VenusRISE
+2021-12-21_14:23:19   Adding schedule for VenusRISE at 2021-12-22 08:59:00
+2021-12-21_14:23:19   Astro events for rising :Saturn
+2021-12-21_14:23:19   Removing old schedule for SaturnRISE
+2021-12-21_14:23:19   Adding schedule for SaturnRISE at 2021-12-22 09:49:39
+2021-12-21_14:23:19   Astro events for rising :Mars
+2021-12-21_14:23:19   Removing old schedule for MarsRISE
+2021-12-21_14:23:19   Adding schedule for MarsRISE at 2021-12-22 05:28:37
+2021-12-21_14:23:19   Astro events for rising :ISS
+2021-12-21_14:23:19   Removing old schedule for ISSRISE
+2021-12-21_14:23:20   Adding schedule for ISSRISE at 2021-12-22 05:56:12
+Jobstore default:
+    astro_events_management (trigger: interval[1:00:00], next run at: 2021-12-21 14:23:18 UTC)
+    astro_rising_events (trigger: date[2021-12-21 17:54:19 UTC], next run at: 2021-12-21 17:54:19 UTC)
+    astro_rising_events (trigger: date[2021-12-22 05:28:37 UTC], next run at: 2021-12-22 05:28:37 UTC)
+    astro_rising_events (trigger: date[2021-12-22 05:56:12 UTC], next run at: 2021-12-22 05:56:12 UTC)
+    astro_rising_events (trigger: date[2021-12-22 07:23:01 UTC], next run at: 2021-12-22 07:23:01 UTC)
+    astro_rising_events (trigger: date[2021-12-22 08:30:06 UTC], next run at: 2021-12-22 08:30:06 UTC)
+    astro_rising_events (trigger: date[2021-12-22 08:59:00 UTC], next run at: 2021-12-22 08:59:00 UTC)
+    astro_rising_events (trigger: date[2021-12-22 09:49:39 UTC], next run at: 2021-12-22 09:49:39 UTC)
+    astro_rising_events (trigger: date[2021-12-22 10:35:05 UTC], next run at: 2021-12-22 10:35:05 UTC)
+    downloadtle (trigger: interval[1 day, 0:00:00], next run at: 2021-12-22 13:23:18 UTC)
+2021-12-21_14:23:20   -----Stop computing astro events
+2021-12-21_14:23:20   Testing Buzzer
+2021-12-21_14:23:35   20;01;Oregon Temp;ID=9210;TEMP=001a;BAT=OK;
+
+2021-12-21_14:23:35   Dec 21 13:23:35 TEMP Balcon : 2.6
+2021-12-21_14:24:14   20;02;Oregon Temp;ID=9210;TEMP=001a;BAT=OK;
+
+2021-12-21_14:24:14   Dec 21 13:24:14 TEMP Balcon : 2.6
+2021-12-21_14:24:53   20;03;Oregon Temp;ID=9210;TEMP=001a;BAT=OK;
+
+2021-12-21_14:24:53   Dec 21 13:24:53 TEMP Balcon : 2.6
+2021-12-21_14:25:32   20;04;Oregon Temp;ID=9210;TEMP=001a;BAT=OK;
+
+2021-12-21_14:25:32   Dec 21 13:25:32 TEMP Balcon : 2.6
+2021-12-21_14:26:11   20;05;Oregon Temp;ID=9210;TEMP=001a;BAT=OK;
+
+2021-12-21_14:26:11   Dec 21 13:26:11 TEMP Balcon : 2.6
+2021-12-21_14:26:25   20;06;Renkforce E_TA;ID=000a;TEMP=0025;
+
+2021-12-21_14:26:25   Dec 21 13:26:25 TEMP Inconnu : 3.7
+2021-12-21_14:26:50   20;07;Oregon Temp;ID=9210;TEMP=001b;BAT=OK;
+
+2021-12-21_14:26:50   Dec 21 13:26:50 TEMP Balcon : 2.7
+2021-12-21_14:27:22   20;08;Xiron;ID=0A01;TEMP=0026;HUM=27;BAT=OK;
+
+2021-12-21_14:27:22   Dec 21 13:27:22 TEMP Inconnu : 3.8
+2021-12-21_14:27:22   Dec 21 13:27:22 HUM Inconnu : 27
+2021-12-21_14:27:29   20;09;Oregon Temp;ID=9210;TEMP=001b;BAT=OK;
+
+2021-12-21_14:27:29   Dec 21 13:27:29 TEMP Balcon : 2.7
+2021-12-21_14:28:08   20;0A;Oregon Temp;ID=9210;TEMP=001b;BAT=OK;
+
+2021-12-21_14:28:08   Dec 21 13:28:08 TEMP Balcon : 2.7
+2021-12-21_14:28:15   Sending data  to Brocker  :  {"deviceid": "station_oullins_1", "TEMP": "21.3", "PRESSURE": "1021.3"}
+2021-12-21_14:28:15   m.legoupyl.com    -    xavfan/data
+2021-12-21_14:28:15   Sending json Message to broker
+2021-12-21_14:28:15   Sending data  to Brocker  :  {"deviceid": "station_oullins_2", "TEMP": 2.7}
+2021-12-21_14:28:15   m.legoupyl.com    -    xavfan/data
+2021-12-21_14:28:15   Sending json Message to broker
+2021-12-21_14:28:15   Sending data  to Brocker  :  {"deviceid": "station_oullins_3", "TEMP": 3.8, "HUM": "27"}
+2021-12-21_14:28:15   m.legoupyl.com    -    xavfan/data
+2021-12-21_14:28:15   Sending json Message to broker
+2021-12-21_14:28:15   Sending data  to Brocker  :  {"deviceid": "station_oullins_5", "TEMP": 3.7}
+2021-12-21_14:28:15   m.legoupyl.com    -    xavfan/data
+2021-12-21_14:28:15   Sending json Message to broker
+2021-12-21_14:28:19   20;0B;Xiron;ID=0A01;TEMP=0026;HUM=27;BAT=OK;
+
+2021-12-21_14:28:19   Dec 21 13:28:19 TEMP Inconnu : 3.8
+2021-12-21_14:28:19   Dec 21 13:28:19 HUM Inconnu : 27
+2021-12-21_14:28:47   20;0C;Oregon Temp;ID=9210;TEMP=001b;BAT=OK;
+
+2021-12-21_14:28:47   Dec 21 13:28:47 TEMP Balcon : 2.7
+2021-12-21_14:29:16   20;0D;Xiron;ID=0A01;TEMP=0025;HUM=27;BAT=OK;
+
+2021-12-21_14:29:16   Dec 21 13:29:16 TEMP Inconnu : 3.7
+2021-12-21_14:29:16   Dec 21 13:29:16 HUM Inconnu : 27
+2021-12-21_14:29:26   20;0E;Oregon Temp;ID=9210;TEMP=001b;BAT=OK;
+
+2021-12-21_14:29:26   Dec 21 13:29:26 TEMP Balcon : 2.7
+2021-12-21_14:30:05   20;0F;Oregon Temp;ID=9210;TEMP=001b;BAT=OK;
+
+2021-12-21_14:30:05   Dec 21 13:30:05 TEMP Balcon : 2.7
+2021-12-21_14:30:13   20;10;Xiron;ID=0A01;TEMP=0025;HUM=27;BAT=OK;
+
+2021-12-21_14:30:13   Dec 21 13:30:13 TEMP Inconnu : 3.7
+2021-12-21_14:30:13   Dec 21 13:30:13 HUM Inconnu : 27
+2021-12-21_14:30:44   20;11;Oregon Temp;ID=9210;TEMP=001b;BAT=OK;
+
+2021-12-21_14:30:44   Dec 21 13:30:44 TEMP Balcon : 2.7
+2021-12-21_14:31:10   20;12;Xiron;ID=0A01;TEMP=0025;HUM=27;BAT=OK;
+
+2021-12-21_14:31:10   Dec 21 13:31:10 TEMP Inconnu : 3.7
+2021-12-21_14:31:10   Dec 21 13:31:10 HUM Inconnu : 27
+2021-12-21_14:31:23   20;13;Oregon Temp;ID=9210;TEMP=001b;BAT=OK;
+
+2021-12-21_14:31:23   Dec 21 13:31:23 TEMP Balcon : 2.7
+2021-12-21_14:32:02   20;14;Oregon Temp;ID=9210;TEMP=001c;BAT=OK;
+
+2021-12-21_14:32:02   Dec 21 13:32:02 TEMP Balcon : 2.8
+2021-12-21_14:32:07   20;15;Xiron;ID=0A01;TEMP=0025;HUM=27;BAT=OK;
+
+2021-12-21_14:32:07   Dec 21 13:32:07 TEMP Inconnu : 3.7
+2021-12-21_14:32:07   Dec 21 13:32:07 HUM Inconnu : 27
+2021-12-21_14:32:41   20;16;Oregon Temp;ID=9210;TEMP=001c;BAT=OK;
+
+2021-12-21_14:32:41   Dec 21 13:32:41 TEMP Balcon : 2.8
+2021-12-21_14:33:04   20;17;Xiron;ID=0A01;TEMP=0026;HUM=27;BAT=OK;
+
+2021-12-21_14:33:04   Dec 21 13:33:04 TEMP Inconnu : 3.8
+2021-12-21_14:33:04   Dec 21 13:33:04 HUM Inconnu : 27
+2021-12-21_14:33:15   Sending data  to Brocker  :  {"deviceid": "station_oullins_1", "TEMP": "21.3", "PRESSURE": "1021.3"}
+2021-12-21_14:33:15   m.legoupyl.com    -    xavfan/data
+2021-12-21_14:33:15   Sending json Message to broker
+2021-12-21_14:33:15   Sending data  to Brocker  :  {"deviceid": "station_oullins_2", "TEMP": 2.8}
+2021-12-21_14:33:15   m.legoupyl.com    -    xavfan/data
+2021-12-21_14:33:15   Sending json Message to broker
+2021-12-21_14:33:15   Sending data  to Brocker  :  {"deviceid": "station_oullins_3", "TEMP": 3.8, "HUM": "27"}
+2021-12-21_14:33:15   m.legoupyl.com    -    xavfan/data
+2021-12-21_14:33:15   Sending json Message to broker
+2021-12-21_14:33:15   Sending data  to Brocker  :  {"deviceid": "station_oullins_5", "TEMP": 3.7}
+2021-12-21_14:33:15   m.legoupyl.com    -    xavfan/data
+2021-12-21_14:33:15   Sending json Message to broker
+2021-12-21_14:33:20   20;18;Oregon Temp;ID=9210;TEMP=001c;BAT=OK;
+
+2021-12-21_14:33:20   Dec 21 13:33:20 TEMP Balcon : 2.8
+2021-12-21_14:33:59   20;19;Oregon Temp;ID=9210;TEMP=001c;BAT=OK;
+
+2021-12-21_14:33:59   Dec 21 13:33:59 TEMP Balcon : 2.8
+2021-12-21_14:34:01   20;1A;Xiron;ID=0A01;TEMP=0026;HUM=27;BAT=OK;
+
+2021-12-21_14:34:01   Dec 21 13:34:01 TEMP Inconnu : 3.8
+2021-12-21_14:34:01   Dec 21 13:34:01 HUM Inconnu : 27
+2021-12-21_14:34:38   20;1B;Oregon Temp;ID=9210;TEMP=001c;BAT=OK;
+
+2021-12-21_14:34:38   Dec 21 13:34:38 TEMP Balcon : 2.8
+2021-12-21_14:34:58   20;1C;Xiron;ID=0A01;TEMP=0027;HUM=27;BAT=OK;
+
+2021-12-21_14:34:58   Dec 21 13:34:58 TEMP Inconnu : 3.9
+2021-12-21_14:34:58   Dec 21 13:34:58 HUM Inconnu : 27
+2021-12-21_14:35:17   20;1D;Oregon Temp;ID=9210;TEMP=001c;BAT=OK;
+
+2021-12-21_14:35:17   Dec 21 13:35:17 TEMP Balcon : 2.8
+2021-12-21_14:35:55   20;1E;Renkforce E_TA;ID=000a;TEMP=0027;
+
+2021-12-21_14:35:55   Dec 21 13:35:55 TEMP Inconnu : 3.9
+2021-12-21_14:35:56   20;1F;Oregon Temp;ID=9210;TEMP=001c;BAT=OK;
+
+2021-12-21_14:35:56   Dec 21 13:35:56 TEMP Balcon : 2.8
+2021-12-21_14:36:35   20;20;Oregon Temp;ID=9210;TEMP=001c;BAT=OK;
+
+2021-12-21_14:36:35   Dec 21 13:36:35 TEMP Balcon : 2.8
+2021-12-21_14:37:14   20;21;Oregon Temp;ID=9210;TEMP=001c;BAT=OK;
+
+2021-12-21_14:37:14   Dec 21 13:37:14 TEMP Balcon : 2.8
+2021-12-21_14:37:49   20;22;Xiron;ID=0A01;TEMP=0028;HUM=27;BAT=OK;
+
+2021-12-21_14:37:49   Dec 21 13:37:49 TEMP Inconnu : 4.0
+2021-12-21_14:37:49   Dec 21 13:37:49 HUM Inconnu : 27
+2021-12-21_14:37:53   20;23;Oregon Temp;ID=9210;TEMP=001c;BAT=OK;
+
+2021-12-21_14:37:53   Dec 21 13:37:53 TEMP Balcon : 2.8
+2021-12-21_14:38:15   Sending data  to Brocker  :  {"deviceid": "station_oullins_1", "TEMP": "21.3", "PRESSURE": "1021.2"}
+2021-12-21_14:38:15   m.legoupyl.com    -    xavfan/data
+2021-12-21_14:38:15   Sending json Message to broker
+2021-12-21_14:38:15   Sending data  to Brocker  :  {"deviceid": "station_oullins_2", "TEMP": 2.8}
+2021-12-21_14:38:15   m.legoupyl.com    -    xavfan/data
+2021-12-21_14:38:15   Sending json Message to broker
+2021-12-21_14:38:15   Sending data  to Brocker  :  {"deviceid": "station_oullins_3", "TEMP": 4.0, "HUM": "27"}
+2021-12-21_14:38:15   m.legoupyl.com    -    xavfan/data
+2021-12-21_14:38:15   Sending json Message to broker
+2021-12-21_14:38:15   Sending data  to Brocker  :  {"deviceid": "station_oullins_5", "TEMP": 3.9}
+2021-12-21_14:38:15   m.legoupyl.com    -    xavfan/data
+2021-12-21_14:38:15   Sending json Message to broker
+2021-12-21_14:38:32   20;24;Oregon Temp;ID=9210;TEMP=001c;BAT=OK;
+
+2021-12-21_14:38:32   Dec 21 13:38:32 TEMP Balcon : 2.8
+2021-12-21_14:38:46   20;25;Xiron;ID=0A01;TEMP=0028;HUM=27;BAT=OK;
+
+2021-12-21_14:38:46   Dec 21 13:38:46 TEMP Inconnu : 4.0
+2021-12-21_14:38:46   Dec 21 13:38:46 HUM Inconnu : 27
+2021-12-21_14:39:11   20;26;Oregon Temp;ID=9210;TEMP=001c;BAT=OK;
+
+2021-12-21_14:39:11   Dec 21 13:39:11 TEMP Balcon : 2.8
+2021-12-21_14:39:50   20;27;Oregon Temp;ID=9210;TEMP=001d;BAT=OK;
+
+2021-12-21_14:39:50   Dec 21 13:39:50 TEMP Balcon : 2.9
+2021-12-21_14:40:29   20;28;Oregon Temp;ID=9210;TEMP=001d;BAT=OK;
+
+2021-12-21_14:40:29   Dec 21 13:40:29 TEMP Balcon : 2.9
+2021-12-21_14:40:40   20;29;Xiron;ID=0A01;TEMP=0029;HUM=27;BAT=OK;
+
+2021-12-21_14:40:40   Dec 21 13:40:40 TEMP Inconnu : 4.1
+2021-12-21_14:40:40   Dec 21 13:40:40 HUM Inconnu : 27
+2021-12-21_14:41:08   20;2A;Oregon Temp;ID=9210;TEMP=001d;BAT=OK;
+
+2021-12-21_14:41:08   Dec 21 13:41:08 TEMP Balcon : 2.9
+2021-12-21_14:41:36   20;2B;Renkforce E_TA;ID=000a;TEMP=0028;
+
+2021-12-21_14:41:36   Dec 21 13:41:36 TEMP Inconnu : 4.0
+2021-12-21_14:41:47   20;2C;Oregon Temp;ID=9210;TEMP=001d;BAT=OK;
+
+2021-12-21_14:41:47   Dec 21 13:41:47 TEMP Balcon : 2.9
+2021-12-21_14:42:26   20;2D;Oregon Temp;ID=9210;TEMP=001d;BAT=OK;
+
+2021-12-21_14:42:26   Dec 21 13:42:26 TEMP Balcon : 2.9
+2021-12-21_14:43:05   20;2E;Oregon Temp;ID=9210;TEMP=001d;BAT=OK;
+
+2021-12-21_14:43:05   Dec 21 13:43:05 TEMP Balcon : 2.9
+2021-12-21_14:43:16   Sending data  to Brocker  :  {"deviceid": "station_oullins_1", "TEMP": "21.3", "PRESSURE": "1021.1"}
+2021-12-21_14:43:16   m.legoupyl.com    -    xavfan/data
+2021-12-21_14:43:16   Sending json Message to broker
+2021-12-21_14:43:16   Sending data  to Brocker  :  {"deviceid": "station_oullins_2", "TEMP": 2.9}
+2021-12-21_14:43:16   m.legoupyl.com    -    xavfan/data
+2021-12-21_14:43:16   Sending json Message to broker
+2021-12-21_14:43:16   Sending data  to Brocker  :  {"deviceid": "station_oullins_3", "TEMP": 4.1, "HUM": "27"}
+2021-12-21_14:43:16   m.legoupyl.com    -    xavfan/data
+2021-12-21_14:43:16   Sending json Message to broker
+2021-12-21_14:43:16   Sending data  to Brocker  :  {"deviceid": "station_oullins_5", "TEMP": 4.0}
+2021-12-21_14:43:16   m.legoupyl.com    -    xavfan/data
+2021-12-21_14:43:16   Sending json Message to broker
+2021-12-21_14:43:44   20;2F;Oregon Temp;ID=9210;TEMP=001d;BAT=OK;
+
+2021-12-21_14:43:44   Dec 21 13:43:44 TEMP Balcon : 2.9
+2021-12-21_14:44:23   20;30;Oregon Temp;ID=9210;TEMP=001d;BAT=OK;
+
+2021-12-21_14:44:23   Dec 21 13:44:23 TEMP Balcon : 2.9
+2021-12-21_14:45:02   20;31;Oregon Temp;ID=9210;TEMP=001d;BAT=OK;
+
+2021-12-21_14:45:02   Dec 21 13:45:02 TEMP Balcon : 2.9
+2021-12-21_14:45:41   20;32;Oregon Temp;ID=9210;TEMP=001d;BAT=OK;
+
+2021-12-21_14:45:41   Dec 21 13:45:41 TEMP Balcon : 2.9
+2021-12-21_14:46:20   20;33;Oregon Temp;ID=9210;TEMP=001d;BAT=OK;
+
+2021-12-21_14:46:20   Dec 21 13:46:20 TEMP Balcon : 2.9
+2021-12-21_14:46:59   20;34;Oregon Temp;ID=9210;TEMP=001d;BAT=OK;
+
+2021-12-21_14:46:59   Dec 21 13:46:59 TEMP Balcon : 2.9
+2021-12-21_14:47:19   20;35;Xiron;ID=0A01;TEMP=0027;HUM=27;BAT=OK;
+
+2021-12-21_14:47:19   Dec 21 13:47:19 TEMP Inconnu : 3.9
+2021-12-21_14:47:19   Dec 21 13:47:19 HUM Inconnu : 27
+2021-12-21_14:47:38   20;36;Oregon Temp;ID=9210;TEMP=001d;BAT=OK;
+
+2021-12-21_14:47:38   Dec 21 13:47:38 TEMP Balcon : 2.9
+2021-12-21_14:48:15   20;37;FineOffset;ID=0000;TEMP=0000;HUM=00;
+
+2021-12-21_14:48:16   Sending data  to Brocker  :  {"deviceid": "station_oullins_1", "TEMP": "21.3", "PRESSURE": "1021.1"}
+2021-12-21_14:48:16   m.legoupyl.com    -    xavfan/data
+2021-12-21_14:48:16   Sending json Message to broker
+2021-12-21_14:48:16   Sending data  to Brocker  :  {"deviceid": "station_oullins_2", "TEMP": 2.9}
+2021-12-21_14:48:16   m.legoupyl.com    -    xavfan/data
+2021-12-21_14:48:16   Sending json Message to broker
+2021-12-21_14:48:16   Sending data  to Brocker  :  {"deviceid": "station_oullins_3", "TEMP": 3.9, "HUM": "27"}
+2021-12-21_14:48:16   m.legoupyl.com    -    xavfan/data
+2021-12-21_14:48:16   Sending json Message to broker
+2021-12-21_14:48:16   Sending data  to Brocker  :  {"deviceid": "station_oullins_5", "TEMP": 4.0}
+2021-12-21_14:48:16   m.legoupyl.com    -    xavfan/data
+2021-12-21_14:48:16   Sending json Message to broker
+2021-12-21_14:48:17   20;38;Oregon Temp;ID=9210;TEMP=001d;BAT=OK;
+
+2021-12-21_14:48:17   Dec 21 13:48:17 TEMP Balcon : 2.9
+2021-12-21_14:48:56   20;39;Oregon Temp;ID=9210;TEMP=001d;BAT=OK;
+
+2021-12-21_14:48:56   Dec 21 13:48:56 TEMP Balcon : 2.9
+2021-12-21_14:49:35   20;3A;Oregon Temp;ID=9210;TEMP=001d;BAT=OK;
+
+2021-12-21_14:49:35   Dec 21 13:49:35 TEMP Balcon : 2.9
+2021-12-21_14:50:10   20;3B;Renkforce E_TA;ID=000a;TEMP=0027;
+
+2021-12-21_14:50:10   Dec 21 13:50:10 TEMP Inconnu : 3.9
+2021-12-21_14:50:14   20;3C;Oregon Temp;ID=9210;TEMP=001d;BAT=OK;
+
+2021-12-21_14:50:14   Dec 21 13:50:14 TEMP Balcon : 2.9
+2021-12-21_14:50:53   20;3D;Oregon Temp;ID=9210;TEMP=001d;BAT=OK;
+
+2021-12-21_14:50:53   Dec 21 13:50:53 TEMP Balcon : 2.9
+2021-12-21_14:51:32   20;3E;Oregon Temp;ID=9210;TEMP=001d;BAT=OK;
+
+2021-12-21_14:51:32   Dec 21 13:51:32 TEMP Balcon : 2.9
+2021-12-21_14:52:11   20;3F;Oregon Temp;ID=9210;TEMP=001e;BAT=OK;
+
+2021-12-21_14:52:11   Dec 21 13:52:11 TEMP Balcon : 3.0
+2021-12-21_14:52:50   20;40;Oregon Temp;ID=9210;TEMP=001e;BAT=OK;
+
+2021-12-21_14:52:50   Dec 21 13:52:50 TEMP Balcon : 3.0
+2021-12-21_14:53:01   20;41;Xiron;ID=0A01;TEMP=0028;HUM=27;BAT=OK;
+
+2021-12-21_14:53:01   Dec 21 13:53:01 TEMP Inconnu : 4.0
+2021-12-21_14:53:01   Dec 21 13:53:01 HUM Inconnu : 27
+2021-12-21_14:53:16   Sending data  to Brocker  :  {"deviceid": "station_oullins_1", "TEMP": "21.3", "PRESSURE": "1021.0"}
+2021-12-21_14:53:16   m.legoupyl.com    -    xavfan/data
+2021-12-21_14:53:16   Sending json Message to broker
+2021-12-21_14:53:16   Sending data  to Brocker  :  {"deviceid": "station_oullins_2", "TEMP": 3.0}
+2021-12-21_14:53:16   m.legoupyl.com    -    xavfan/data
+2021-12-21_14:53:16   Sending json Message to broker
+2021-12-21_14:53:16   Sending data  to Brocker  :  {"deviceid": "station_oullins_3", "TEMP": 4.0, "HUM": "27"}
+2021-12-21_14:53:16   m.legoupyl.com    -    xavfan/data
+2021-12-21_14:53:16   Sending json Message to broker
+2021-12-21_14:53:16   Sending data  to Brocker  :  {"deviceid": "station_oullins_5", "TEMP": 3.9}
+2021-12-21_14:53:16   m.legoupyl.com    -    xavfan/data
+2021-12-21_14:53:16   Sending json Message to broker
+2021-12-21_14:53:29   20;42;Oregon Temp;ID=9210;TEMP=001e;BAT=OK;
+
+2021-12-21_14:53:29   Dec 21 13:53:29 TEMP Balcon : 3.0
+2021-12-21_14:54:08   20;43;Oregon Temp;ID=9210;TEMP=001e;BAT=OK;
+
+2021-12-21_14:54:08   Dec 21 13:54:08 TEMP Balcon : 3.0
+2021-12-21_14:54:47   20;44;Oregon Temp;ID=9210;TEMP=001e;BAT=OK;
+
+2021-12-21_14:54:47   Dec 21 13:54:47 TEMP Balcon : 3.0

@@ -1,0 +1,83 @@
+2021-12-09_15:00:34   Variable initialisation
+2021-12-09_15:00:34   Scheduler initialisation
+2021-12-09_15:00:34   Initializing buzzer PIN 22
+2021-12-09_15:00:34   LCD INIT
+2021-12-09_15:00:34   Creating threads
+2021-12-09_15:00:34   Starting threads
+2021-12-09_15:00:34   Loading TLE Fileiss_tle.txt
+2021-12-09_15:00:35   file downloaded : ./tle//stations.txt
+2021-12-09_15:00:35   Keyboard initialization
+2021-12-09_15:00:36   Generating screen list from database
+2021-12-09_15:00:36   Starting Scheduler management
+Jobstore default:
+    astro_rising_events (trigger: date[2021-12-09 14:36:58 UTC], next run at: 2021-12-09 14:36:58 UTC)
+    astro_events_management (trigger: interval[1:00:00], next run at: 2021-12-09 15:00:38 UTC)
+    astro_rising_events (trigger: date[2021-12-10 05:31:46 UTC], next run at: 2021-12-10 05:31:46 UTC)
+    astro_rising_events (trigger: date[2021-12-10 07:14:34 UTC], next run at: 2021-12-10 07:14:34 UTC)
+    astro_rising_events (trigger: date[2021-12-10 07:54:33 UTC], next run at: 2021-12-10 07:54:33 UTC)
+    astro_rising_events (trigger: date[2021-12-10 09:55:08 UTC], next run at: 2021-12-10 09:55:08 UTC)
+    astro_rising_events (trigger: date[2021-12-10 10:33:42 UTC], next run at: 2021-12-10 10:33:42 UTC)
+    astro_rising_events (trigger: date[2021-12-10 11:17:45 UTC], next run at: 2021-12-10 11:17:45 UTC)
+    astro_rising_events (trigger: date[2021-12-10 12:18:29 UTC], next run at: 2021-12-10 12:18:29 UTC)
+    downloadtle (trigger: interval[1 day, 0:00:00], next run at: 2021-12-10 14:00:38 UTC)
+2021-12-09_15:00:38   -----Start computing astro events
+2021-12-09_15:00:38   Astro events for rising :Jupiter
+2021-12-09_15:00:38   Removing old schedule for JupiterRISE
+2021-12-09_15:00:38   Adding schedule for JupiterRISE at 2021-12-10 11:17:45
+2021-12-09_15:00:38   Astro events for rising :Moon
+2021-12-09_15:00:38   Removing old schedule for MoonRISE
+2021-12-09_15:00:38   Adding schedule for MoonRISE at 2021-12-10 12:18:29
+2021-12-09_15:00:38   Astro events for rising :Sun
+2021-12-09_15:00:38   Removing old schedule for SunRISE
+2021-12-09_15:00:38   Adding schedule for SunRISE at 2021-12-10 07:14:34
+2021-12-09_15:00:38   Astro events for rising :Mercure
+2021-12-09_15:00:38   Removing old schedule for MercureRISE
+2021-12-09_15:00:38   Adding schedule for MercureRISE at 2021-12-10 07:54:33
+2021-12-09_15:00:39   Astro events for rising :Venus
+2021-12-09_15:00:39   Removing old schedule for VenusRISE
+2021-12-09_15:00:39   Adding schedule for VenusRISE at 2021-12-10 09:55:08
+2021-12-09_15:00:39   Astro events for rising :Saturn
+2021-12-09_15:00:39   Removing old schedule for SaturnRISE
+2021-12-09_15:00:39   Adding schedule for SaturnRISE at 2021-12-10 10:33:42
+2021-12-09_15:00:39   Astro events for rising :Mars
+2021-12-09_15:00:39   Removing old schedule for MarsRISE
+2021-12-09_15:00:39   Adding schedule for MarsRISE at 2021-12-10 05:31:46
+2021-12-09_15:00:39   Astro events for rising :ISS
+2021-12-09_15:00:39   Removing old schedule for ISSRISE
+2021-12-09_15:00:39   ISS NextPass : 2021/12/9 14:42:22
+2021-12-09_15:00:39   ISS Magnitude-2.9965059352092087
+2021-12-09_15:00:39   ISS Coord :ALT:37.8 AZ: 15.1 V
+2021-12-09_15:00:39   Adding schedule for ISSRISE at 2021-12-9 14:36:58
+Jobstore default:
+    astro_rising_events (trigger: date[2021-12-09 14:36:58 UTC], next run at: 2021-12-09 14:36:58 UTC)
+    astro_events_management (trigger: interval[1:00:00], next run at: 2021-12-09 15:00:38 UTC)
+    astro_rising_events (trigger: date[2021-12-10 05:31:46 UTC], next run at: 2021-12-10 05:31:46 UTC)
+    astro_rising_events (trigger: date[2021-12-10 07:14:34 UTC], next run at: 2021-12-10 07:14:34 UTC)
+    astro_rising_events (trigger: date[2021-12-10 07:54:33 UTC], next run at: 2021-12-10 07:54:33 UTC)
+    astro_rising_events (trigger: date[2021-12-10 09:55:08 UTC], next run at: 2021-12-10 09:55:08 UTC)
+    astro_rising_events (trigger: date[2021-12-10 10:33:42 UTC], next run at: 2021-12-10 10:33:42 UTC)
+    astro_rising_events (trigger: date[2021-12-10 11:17:45 UTC], next run at: 2021-12-10 11:17:45 UTC)
+    astro_rising_events (trigger: date[2021-12-10 12:18:29 UTC], next run at: 2021-12-10 12:18:29 UTC)
+    downloadtle (trigger: interval[1 day, 0:00:00], next run at: 2021-12-10 14:00:38 UTC)
+2021-12-09_15:00:39   -----Stop computing astro events
+2021-12-09_15:00:39   Testing Buzzer
+Traceback (most recent call last):
+  File "/home/pi/station-meteo/temperature.py", line 1212, in <module>
+    logMsg ("Testing Buzzer" + test)
+TypeError: can only concatenate str (not "int") to str
+Exception in thread Thread-3:
+Traceback (most recent call last):
+  File "/usr/lib/python3.9/threading.py", line 954, in _bootstrap_inner
+    self.run()
+  File "/usr/lib/python3.9/threading.py", line 892, in run
+    self._target(*self._args, **self._kwargs)
+  File "/home/pi/station-meteo/temperature.py", line 818, in rflink
+    line = ser.readline()	   # read a '\n' terminated line
+  File "/home/pi/.local/lib/python3.9/site-packages/serial/serialposix.py", line 595, in read
+    raise SerialException(
+serial.serialutil.SerialException: device reports readiness to read but returned no data (device disconnected or multiple access on port?)
+Exception ignored in: <module 'threading' from '/usr/lib/python3.9/threading.py'>
+Traceback (most recent call last):
+  File "/usr/lib/python3.9/threading.py", line 1428, in _shutdown
+    lock.acquire()
+KeyboardInterrupt: 
