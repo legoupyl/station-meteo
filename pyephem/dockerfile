@@ -1,0 +1,2 @@
+FROM python:alpine
+RUN python -m pip install pyephem
